@@ -4,10 +4,10 @@ export const articleScheme = z.object({
 	id: z.string(),
 	lang: z.string(),
 	picture: z.nullable(
-	z.object({
-		img: z.string(),
-		license: z.string()
-	})
+		z.object({
+			img: z.string(),
+			license: z.string()
+		})
 	),
 	summary: z.string(),
 	title: z.string(),
