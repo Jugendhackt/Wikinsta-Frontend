@@ -5,12 +5,33 @@
 	import { Bookmark, Icon, Share, ArrowPath } from 'svelte-hero-icons';
 	import { favourites } from '$lib/constants/svocal';
 	import { invalidateAll } from '$app/navigation';
+	import { loadArticles } from '$lib/api/article';
 
 	export let data: PageData;
+
+	let articles = data.data;
 </script>
 
-<div class="max-h-[100dvh] snap-y snap-mandatory overflow-y-scroll">
-	{#each data.data as article}
+<div
+	class="max-h-[100dvh] snap-y snap-mandatory overflow-y-scroll"
+	on:scrollend={async (e) => {
+		const element = e.currentTarget
+
+		const remainingHeight = element.scrollHeight - element.scrollTop - element.clientHeight;
+		const remainingScreens = remainingHeight / element.clientHeight;
+
+		console.log({
+			scrollHeight: element.scrollHeight,
+			scrollTop: element.scrollTop,
+			clientHeigh: element.clientHeight,
+			remainingScreens
+		});
+
+		if (remainingScreens > 1) return;
+		articles = [...articles, ...await loadArticles(1)]
+	}}
+>
+	{#each articles as article}
 		<div
 			class="relative flex h-[100dvh] w-full snap-center flex-col-reverse bg-cover bg-no-repeat"
 			style="background: var(--img-url); background-position: center center;"
