@@ -3,7 +3,7 @@
 	import ArticleMetadata from '$lib/components/ArticleMetadata.svelte';
 	import type { PageData } from './$types';
 	import { Bookmark, Icon, Share } from 'svelte-hero-icons';
-	import { favourites } from "$lib/constants/svocal"
+	import { favourites } from '$lib/constants/svocal';
 
 	export let data: PageData;
 
@@ -16,7 +16,7 @@
 			<button
 				class="rounded-lg bg-white bg-opacity-50 p-1 shadow"
 				on:click={() => {
-					 const shareUrl = `${$page.url.toString()}/${encodeURIComponent(article.id)}`;
+					const shareUrl = `${$page.url.toString()}/${encodeURIComponent(article.id)}`;
 
 					if (navigator.share) {
 						try {
@@ -35,7 +35,7 @@
 			<button
 				class="rounded-lg bg-white bg-opacity-50 p-1 shadow"
 				on:click={() => {
-					favourites.update((old) => [...old, article.id])
+					favourites.update((old) => [...old, article.id]);
 				}}
 			>
 				<Icon class="h-6 w-6" src={Bookmark} />

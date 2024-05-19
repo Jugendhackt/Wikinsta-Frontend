@@ -1,5 +1,5 @@
-import { localstorage } from "svocal"
+import { localstorage } from 'svocal';
 
-type UUID = string
+type UUID = string;
 
-export const favourites = localstorage<UUID[]>("favourites", []);
+export const favourites = localstorage<UUID[]>('favourites', []);
