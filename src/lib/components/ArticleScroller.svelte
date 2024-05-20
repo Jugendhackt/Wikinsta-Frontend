@@ -5,6 +5,7 @@
 	import { Bookmark, Icon, Share } from 'svelte-hero-icons';
 	import ArticleMetadata from './ArticleMetadata.svelte';
 	import { favourites } from '$lib/constants/svocal';
+	import MainBg from './MainBg.svelte';
 
 	export let articles: Article[];
 </script>
@@ -24,12 +25,19 @@
 		<div
 			class="relative flex h-[100dvh] w-full snap-center flex-col-reverse bg-cover bg-no-repeat"
 			style="
-				background: var(--img-url);
+				background-size: contain;
 				background-position: center center;
 				background-repeat: no-repeat;
 			"
 			style:--img-url={`url(${article.picture?.img})`}
 		>
+			<MainBg img={article.picture?.img ?? ''} />
+			<img
+				src={article.picture?.img}
+				alt={article.title}
+				class="absolute inset-0 h-full w-full object-contain"
+			/>
+
 			<ArticleMetadata {article}>
 				<div class="flex flex-col-reverse gap-2" slot="right">
 					<button
