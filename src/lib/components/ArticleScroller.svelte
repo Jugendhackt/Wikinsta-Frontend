@@ -14,7 +14,7 @@
 
 <div
 	class="max-h-[100dvh] snap-y snap-mandatory overflow-y-scroll"
-	on:scrollend={async (e) => {
+	on:scroll={async (e) => {
 		const { scrollHeight, scrollTop, clientHeight } = e.currentTarget;
 
 		const remainingHeight = scrollHeight - scrollTop - clientHeight;
@@ -23,7 +23,9 @@
 		focusedArticleIndex = scrollTop / clientHeight;
 
 		if (remainingScreens > 1) return;
-		articles = [...articles, ...(await loadArticles(1))];
+
+		const next = await loadArticles(1);
+		articles = [...articles, ...next];
 	}}
 >
 	{#each articles as article, index}

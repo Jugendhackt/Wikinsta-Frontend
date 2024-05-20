@@ -2,7 +2,7 @@ import { articleScheme, type Article } from '$lib/scheme/article';
 import { z } from 'zod';
 
 // const BASE_URL = "http://localhost:5000"
-const BASE_URL = "http://192.168.179.24:5000"
+const BASE_URL = "http://10.42.0.60:5000"
 
 export async function loadArticles(
 	amount: number,
