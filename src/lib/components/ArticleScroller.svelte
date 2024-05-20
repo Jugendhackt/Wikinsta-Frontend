@@ -8,20 +8,25 @@
 	import MainBg from './MainBg.svelte';
 
 	export let articles: Article[];
+
+	let focusedArticleIndex = 0
 </script>
 
 <div
 	class="max-h-[100dvh] snap-y snap-mandatory overflow-y-scroll"
 	on:scrollend={async (e) => {
-		const element = e.currentTarget;
+		const { scrollHeight, scrollTop, clientHeight} = e.currentTarget
 
-		const remainingHeight = element.scrollHeight - element.scrollTop - element.clientHeight;
-		const remainingScreens = remainingHeight / element.clientHeight;
+		const remainingHeight = scrollHeight - scrollTop - clientHeight;
+		const remainingScreens = remainingHeight / clientHeight;
+
+		focusedArticleIndex = scrollTop / clientHeight
+
 		if (remainingScreens > 1) return;
 		articles = [...articles, ...(await loadArticles(1))];
 	}}
 >
-	{#each articles as article}
+	{#each articles as article, index}
 		<div
 			class="relative flex h-[100dvh] w-full snap-center flex-col-reverse bg-cover bg-no-repeat"
 			style="
@@ -31,7 +36,9 @@
 			"
 			style:--img-url={`url(${article.picture?.img})`}
 		>
-			<MainBg img={article.picture?.img ?? ''} />
+			{#if index === focusedArticleIndex}
+				<MainBg img={article.picture?.img ?? ''} />
+			{/if}
 			<img
 				src={article.picture?.img}
 				alt={article.title}
