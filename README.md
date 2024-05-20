@@ -1,6 +1,6 @@
 # Wik*i*nsta
 
-## Das Endproduk
+## Das Endprodukt
 
 - Instagram welche ausschließlich Wissen vermittelt
   -> Wissen kurz verfasst (Wikipedia in küerzer)
