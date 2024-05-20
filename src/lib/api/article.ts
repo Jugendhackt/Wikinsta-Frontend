@@ -1,6 +1,9 @@
 import { articleScheme, type Article } from '$lib/scheme/article';
 import { z } from 'zod';
 
+// const BASE_URL = "http://localhost:5000"
+const BASE_URL = "http://192.168.179.24:5000"
+
 export async function loadArticles(
 	amount: number,
 	allowWithoutPic = false,
@@ -10,7 +13,7 @@ export async function loadArticles(
 
 	if (missingLength === 0) return private_base;
 
-	const unparsed = await fetch(`http://localhost:5000/random/${missingLength}`).then((r) =>
+	const unparsed = await fetch(`${BASE_URL}/random/${missingLength}`).then((r) =>
 		r.json()
 	);
 	const parsed = [
@@ -25,7 +28,7 @@ export async function loadArticles(
 }
 
 export async function loadArticleById(id: string) {
-	const unparsed = await fetch(`http://localhost:5000/by_id/${id}`).then((r) => r.json());
+	const unparsed = await fetch(`${BASE_URL}/by_id/${id}`).then((r) => r.json());
 
 	return articleScheme.parse(unparsed);
 }
