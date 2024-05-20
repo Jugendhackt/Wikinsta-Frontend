@@ -9,18 +9,18 @@
 
 	export let articles: Article[];
 
-	let focusedArticleIndex = 0
+	let focusedArticleIndex = 0;
 </script>
 
 <div
 	class="max-h-[100dvh] snap-y snap-mandatory overflow-y-scroll"
 	on:scrollend={async (e) => {
-		const { scrollHeight, scrollTop, clientHeight} = e.currentTarget
+		const { scrollHeight, scrollTop, clientHeight } = e.currentTarget;
 
 		const remainingHeight = scrollHeight - scrollTop - clientHeight;
 		const remainingScreens = remainingHeight / clientHeight;
 
-		focusedArticleIndex = scrollTop / clientHeight
+		focusedArticleIndex = scrollTop / clientHeight;
 
 		if (remainingScreens > 1) return;
 		articles = [...articles, ...(await loadArticles(1))];
